@@ -1,6 +1,7 @@
-FROM ubuntu:14.04
+FROM node:5
 
 MAINTAINER fuyaode
+WORKDIR /root
 
 RUN apt-get update && \
     apt-get install -y wget bzip2 build-essential vim && \
@@ -11,5 +12,4 @@ RUN apt-get update && \
     cd scws-1.2.3 && \
     ./configure --prefix=/usr/local/scws ; make ; make install
 
-COPY ./dict.utf8.xdb /usr/local/scws/etc
-COPY ./dict.xdb /usr/local/scws/etc
+COPY ./XDB/* /root/xdb/

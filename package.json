@@ -8,7 +8,8 @@
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --opts ./test/server/mocha.opts ./test/server/**/*.spec.js",
     "start-prod": "NODE_ENV=production node server/",
     "start-pm2": "NODE_ENV=production pm2 start server/ --name='agileworks-api'",
-    "restart-pm2": "pm2 restart agileworks-api"
+    "restart-pm2": "pm2 restart agileworks-api",
+    "docker-test": "docker-compose up test"
   },
   "license": "MIT",
   "dependencies": {
