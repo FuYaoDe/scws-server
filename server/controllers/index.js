@@ -14,9 +14,14 @@ export default class Routes {
 
     publicRoute.get('/', async (ctx) => {
       try {
-        ctx.body = { result: 'OK' };
+        ctx.body = {
+          meaasge: 'test',
+          data: {
+            result: 'ok',
+          },
+        };
       } catch (e) {
-        ctx.body = { error: e };
+        throw e;
       }
     });
 

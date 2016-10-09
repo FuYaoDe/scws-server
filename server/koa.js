@@ -38,18 +38,29 @@ if (environment === 'development') {
 
 const controllers = new Controllers(app);
 
-app.use(async function (ctx, next) {
+app.use(async (ctx, next) => {
   try {
     await next();
+    if (!ctx.body) throw Error('Api not found');
+
+    ctx.body = {
+      ...ctx.body,
+      success: true,
+    };
   } catch (error) {
     debug('error')(error);
-    throw error;
+    ctx.status = 500;
+    ctx.body = {
+      error: error.message,
+      success: false,
+    }
+    // throw error;
   }
 });
 
-
 controllers.setupPublicRoute();
 controllers.setupAppRoute();
+
 
 
 const liftApp = async () => {
