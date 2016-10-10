@@ -3,6 +3,8 @@ import debug from 'debug';
 import bootstrap from './bootstrap';
 import config from './config/init';
 import Controllers from './controllers';
+import Services from './services';
+
 
 import koa from 'koa';
 import cors from 'koa-cors';
@@ -37,6 +39,7 @@ if (environment === 'development') {
 }
 
 const controllers = new Controllers(app);
+global.services = new Services();
 
 app.use(async (ctx, next) => {
   try {

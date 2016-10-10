@@ -8,3 +8,15 @@ test:
     - ./:/app
   ports:
     - "3001:3001"
+    - "1337:1337"
+
+dev:
+  container_name: scws_dev
+  image: scws:0.0.1
+  command: "npm start"
+
+  working_dir: /app
+  volumes:
+    - ./:/app
+  ports:
+    - "1337:1337"
