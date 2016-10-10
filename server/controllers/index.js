@@ -17,9 +17,9 @@ export default class Routes {
     publicRoute.get('/', async (ctx) => {
       try {
         ctx.body = {
-          meaasge: 'test',
+          meaasge: 'Hello SCWS',
           data: {
-            result: 'ok',
+            result: 'Hello SCWS',
           },
         };
       } catch (e) {
@@ -33,9 +33,9 @@ export default class Routes {
         console.log(body);
         const result = await services.scws.call(body);
         ctx.body = {
-          meaasge: 'call scws',
+          meaasge: 'Call scws',
           data: {
-            result,
+            ...result,
           },
         };
       } catch (e) {

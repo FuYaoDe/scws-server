@@ -20,3 +20,14 @@ dev:
     - ./:/app
   ports:
     - "1337:1337"
+
+prod:
+  container_name: scws_prod
+  image: scws:0.0.1
+  command: "npm run start-prod"
+
+  working_dir: /app
+  volumes:
+    - ./:/app
+  ports:
+    - "1337:80"

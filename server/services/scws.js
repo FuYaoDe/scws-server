@@ -1,3 +1,4 @@
+import debug from 'debug';
 import { exec } from 'child-process-promise';
 import fs from 'fs';
 
@@ -13,25 +14,36 @@ export default class scws {
     }
   }
 
-  async call({ content, charset, showSymbol, attribute, time }) {
+  getInfo(input) {
+    return {
+      textLen: input.match(new RegExp('TextLen:\\s*([0-9]*)\\s*'))[1],
+      prepareTime: input.match(new RegExp('Prepare:\\s*([0-9.]*)\\s*'))[1],
+      segmentTime: input.match(new RegExp('Segment:\\s*([0-9.]*)\\s*'))[1],
+    };
+  }
+
+  async call({ content, charset, showSymbol, showAttribute }) {
     try {
-      charset = charset ? `-c ${charset}` : '';
+      charset = charset ? `-c ${charset}` : '-c utf8';
       showSymbol = showSymbol ? '' : '-I';
-      attribute = attribute ? '-A' : '';
-      time = time ? '' : '-N';
+      showAttribute = showAttribute ? '-A' : '';
 
       const xdbsPath = await this.loadXDBDict();
 
       const cmd = `/usr/local/scws/bin/scws -i "${content}" -d ${xdbsPath}\
-        ${charset} ${showSymbol} ${time} ${attribute}`;
-      console.log(cmd);
+        ${charset} ${showSymbol} ${showAttribute}`;
+      debug('dev')(cmd);
       const result = await exec(cmd)
-      .then((cmdResult) => {
-        console.log(cmdResult.stdout);
-        return cmdResult.stdout
-      })
+      .then((cmdResult) => cmdResult)
       .catch((e) => { throw e; });
-      return result.split(' ');
+      const wordArray = result.stdout.split(' ');
+      wordArray.pop();
+
+      return {
+        stdout: result.stdout,
+        wordArray,
+        ...this.getInfo(result.stderr),
+      };
     } catch (e) {
       throw e;
     }

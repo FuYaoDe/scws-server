@@ -31,7 +31,7 @@ if (environment === 'production') {
   debug.enable('koa,error');
 }
 
-if (environment === 'development') {
+if (environment === 'development' || environment === 'test') {
   // set debug environment, must be programmaticaly for windows
   debug.enable('dev,koa,error');
   // log when process is blocked
@@ -56,8 +56,7 @@ app.use(async (ctx, next) => {
     ctx.body = {
       error: error.message,
       success: false,
-    }
-    // throw error;
+    };
   }
 });
 
