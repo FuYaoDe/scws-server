@@ -1,6 +1,6 @@
 test:
   container_name: scws_test
-  image: scws:0.0.1
+  image: scws:0.0.2
   command: "npm test"
 
   working_dir: /app
@@ -12,7 +12,7 @@ test:
 
 dev:
   container_name: scws_dev
-  image: scws:0.0.1
+  image: scws:0.0.2
   command: "npm run dev"
 
   working_dir: /app
@@ -23,7 +23,7 @@ dev:
 
 prod:
   container_name: scws_prod
-  image: scws:0.0.1
+  image: scws:0.0.2
   command: "npm start"
 
   working_dir: /app
