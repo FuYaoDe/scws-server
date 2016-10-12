@@ -13,7 +13,7 @@ test:
 dev:
   container_name: scws_dev
   image: scws:0.0.1
-  command: "npm start"
+  command: "npm run dev"
 
   working_dir: /app
   volumes:
@@ -24,7 +24,7 @@ dev:
 prod:
   container_name: scws_prod
   image: scws:0.0.1
-  command: "npm run start-prod"
+  command: "npm start"
 
   working_dir: /app
   volumes:
